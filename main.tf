@@ -1,3 +1,25 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.region
+}
+
+module "s3-webapp" {
+  source  = "app.terraform.io/Terraform-cloud-leomcoco/s3-webapp/aws"
+  name   = var.name
+  region = var.region
+  prefix = var.prefix
+  version = "1.0.0"
+}
+
+
 resource "aws_s3_bucket" "bucket" {
   bucket_prefix = "${var.prefix}-${var.name}"
 
